@@ -1,7 +1,7 @@
 import { getIdleGames } from "@/entities/game/server";
 import { GameCard } from "../ui/game-card";
 import { Layout } from "../ui/layout";
-import { CreateButton } from "../ui/create-button";
+import { CreateButton } from "./create-button";
 
 export async function GameList() {
     const games = await getIdleGames()
