@@ -2,6 +2,7 @@
 
 import { Input } from "@/shared/ui/input"
 import { Label } from "@/shared/ui/label"
+import { PasswordInput } from "@/shared/ui/password-input"
 export default function MainFields({ nameField, email, name, password, setEmail, setName, setPassword }: {
     nameField: boolean
     name: string,
@@ -39,9 +40,9 @@ export default function MainFields({ nameField, email, name, password, setEmail,
             </div>
             <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
-                <Input
+                <PasswordInput
+                    placeholder="Enter your password"
                     id="password"
-                    type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
