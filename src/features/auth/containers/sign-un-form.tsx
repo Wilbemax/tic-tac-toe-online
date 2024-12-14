@@ -1,44 +1,33 @@
 'use client'
 
-import { useState } from 'react'
 import { AuthFormLayout } from '../ui/auth-form-layout'
 import MainFields from '../ui/main-fields'
 import AuthSubmitButton from '../ui/submit-button'
 import AuthAlert from '../ui/auth-alert'
-import { right } from '@/shared/lib/either'
+import { mapLeft, right } from '@/shared/lib/either'
 import SignUpFooter from '../ui/sign-up-footer'
+import { useActionState } from '@/shared/lib/react'
+import { signUpAction } from '../actions/sign-up'
 
 export default function SignUpForm() {
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [formState, action, isPending] = useActionState(signUpAction, right(undefined))
 
 
-    const handleSubmit = async () => {
 
-    }
-
-    return (
+   return (
 
         <AuthFormLayout
             title='Sign Up'
             description='Create a new account to get started'
-            onSubmit={handleSubmit}
             baseInputs={
                 <MainFields
                     nameField={true}
-                    name={name}
-                    email={email}
-                    password={password}
-                    setEmail={setEmail}
-                    setPassword={setPassword}
-                    setName={setName}
                 />}
             submitButton={
-            <AuthSubmitButton>Sign up</AuthSubmitButton>}
+                <AuthSubmitButton isPending={isPending}>Sign up</AuthSubmitButton>}
             footer={<SignUpFooter />}
-            errorAlert={<AuthAlert error={right(null)} />}
-
+            errorAlert={<AuthAlert error={formState} />}
+            action={action}
         />
 
     )

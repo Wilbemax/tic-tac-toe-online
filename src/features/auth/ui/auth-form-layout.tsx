@@ -3,7 +3,7 @@ import React from 'react'
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/shared/ui/card"
 
-export function AuthFormLayout({ title, description, baseInputs, signUpInput, submitButton, footer, onSubmit, errorAlert }: {
+export function AuthFormLayout({ title, description, baseInputs, signUpInput, submitButton, footer, action, errorAlert }: {
     title: string,
     description: string,
     baseInputs: React.ReactNode,
@@ -11,7 +11,7 @@ export function AuthFormLayout({ title, description, baseInputs, signUpInput, su
     submitButton: React.ReactNode,
     footer: React.ReactNode
     errorAlert: React.ReactNode
-    onSubmit?: React.FormEventHandler<HTMLFormElement>
+    action: (formData: FormData) => void
 }) {
 
     return (
@@ -22,7 +22,7 @@ export function AuthFormLayout({ title, description, baseInputs, signUpInput, su
                     <CardDescription>{description}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <form onSubmit={onSubmit} className="space-y-4">
+                    <form action={action} className="space-y-4">
                         {signUpInput && signUpInput}
                         {baseInputs}
 

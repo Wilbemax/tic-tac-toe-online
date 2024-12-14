@@ -3,15 +3,8 @@
 import { Input } from "@/shared/ui/input"
 import { Label } from "@/shared/ui/label"
 import { PasswordInput } from "@/shared/ui/password-input"
-export default function MainFields({ nameField, email, name, password, setEmail, setName, setPassword }: {
+export default function MainFields({ nameField }: {
     nameField: boolean
-    name: string,
-    email: string,
-    password: string,
-    setName: (name: string) => void,
-    setEmail: (email: string) => void,
-    setPassword: (password: string) => void,
-
 }) {
     return (
         <>
@@ -22,8 +15,7 @@ export default function MainFields({ nameField, email, name, password, setEmail,
                         id="name"
                         type="text"
                         placeholder="John Doe"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        name='name'
                         required
                     />
                 </div>}
@@ -33,8 +25,7 @@ export default function MainFields({ nameField, email, name, password, setEmail,
                     id="email"
                     type="email"
                     placeholder="john@example.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    name='email'
                     required
                 />
             </div>
@@ -43,8 +34,7 @@ export default function MainFields({ nameField, email, name, password, setEmail,
                 <PasswordInput
                     placeholder="Enter your password"
                     id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    name="password"
                     required
                 />
             </div>

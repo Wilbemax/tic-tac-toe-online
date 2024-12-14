@@ -1,3 +1,5 @@
+import { GameId } from "@/kernel/ids";
+
 export type GameEntity =
   | GameIdleEntity
   | GameInProgressEntity
@@ -5,34 +7,34 @@ export type GameEntity =
   | GameOverDrawEntity;
 
 export type GameIdleEntity = {
-  id: string;
+  id: GameId;
   creator: PlayerEntity;
   status: "idle";
 };
 
 export type GameInProgressEntity = {
-  id: string;
+  id: GameId;
   players: PlayerEntity[];
   field: Field;
   status: "inProgress";
 };
 
 export type GameOverEntity = {
-  id: string;
+  id: GameId;
   players: PlayerEntity[];
   field: Field;
   winner: PlayerEntity;
   status: "gameOver";
 };
 export type GameOverDrawEntity = {
-  id: string;
+  id: GameId;
   players: PlayerEntity[];
   field: Field;
   status: "gameOverDraw";
 };
 
 export type PlayerEntity = {
-  id: string;
+  id: GameId;
   login: string;
   rating: number;
 };
