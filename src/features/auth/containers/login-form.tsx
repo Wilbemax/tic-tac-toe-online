@@ -1,42 +1,31 @@
 'use client'
 
-import { useState } from 'react'
 import { AuthFormLayout } from '../ui/auth-form-layout'
 import MainFields from '../ui/main-fields'
 import AuthSubmitButton from '../ui/submit-button'
 import AuthAlert from '../ui/auth-alert'
 import { right } from '@/shared/lib/either'
 import LoginFooter from '../ui/login-footer'
+import { useActionState } from '@/shared/lib/react'
+import { loginAction } from '../actions/login'
 
 export default function LoginForm() {
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-
-
-    const handleSubmit = async () => {
-
-    }
-
+       const [formState, action, isPending] = useActionState(loginAction, right(undefined))
+   
     return (
 
         <AuthFormLayout
             title='Login'
             description='Welcome back! Please login to your account'
-            onSubmit={handleSubmit}
+            action={action}
             baseInputs={
                 <MainFields
                     nameField={false}
-                    name={name}
-                    email={email}
-                    password={password}
-                    setEmail={setEmail}
-                    setPassword={setPassword}
-                    setName={setName}
+
                 />}
-            submitButton={<AuthSubmitButton>Sign up</AuthSubmitButton>}
+            submitButton={<AuthSubmitButton isPending={isPending}>Login</AuthSubmitButton>}
             footer={<LoginFooter />}
-            errorAlert={<AuthAlert error={right(null)} />}
+            errorAlert={<AuthAlert error={formState} />}
 
         />
 
