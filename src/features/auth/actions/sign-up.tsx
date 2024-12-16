@@ -1,9 +1,18 @@
 'use server'
 
-import { sessionService, userService } from "@/entities/user/server"
-import { left, mapLeft } from "@/shared/lib/either"
+import { sessionService, userService, } from "@/entities/user/server"
 import { redirect } from "next/navigation"
 import { z } from "zod"
+
+
+export type SignInFormState = {
+    formData?: FormData,
+    errors?: {
+        email?: string,
+        password?: string,
+        _error?: string
+    }
+}
 
 const formDataSchema = z.object({
     email: z.string().email().min(3),
@@ -11,7 +20,7 @@ const formDataSchema = z.object({
 })
 
 
-export const signUpAction = async (state: unknown, formData: FormData) => {
+export const signUpAction = async (state: SignInFormState, formData: FormData): Promise<SignInFormState> => {
 
 
     const data = Object.fromEntries(formData.entries())
@@ -19,7 +28,15 @@ export const signUpAction = async (state: unknown, formData: FormData) => {
     const result = formDataSchema.safeParse(data)
 
     if (!result.success) {
-        return left("ValidationError" as const)
+        const formattedErrors = result.error.format()
+        return {
+            formData,
+            errors :{
+                email: formattedErrors.email?._errors.join(", "),
+                password: formattedErrors.password?._errors.join(", "),
+                _error: formattedErrors._errors.join(", ")
+            }
+        }
     }
 
     const createUserResult = await userService.createUser(result.data)
@@ -31,10 +48,14 @@ export const signUpAction = async (state: unknown, formData: FormData) => {
 
     }
 
+    const errors =  {
+        "user-already-exist": "Пользователь уже существует",
+    }[createUserResult.error]
 
-    return mapLeft(createUserResult, (error) => {
-        return {
-            "user-already-exist": "Пользователь с такой почтой уже существует",
-        }[error]
-    })
+    return {
+        formData,
+        errors :{
+            _error: errors
+        }
+    }
 }

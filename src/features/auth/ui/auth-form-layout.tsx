@@ -25,7 +25,7 @@ export function AuthFormLayout({ title, description, baseInputs, signUpInput, su
                     <form action={action} className="space-y-4">
                         {signUpInput && signUpInput}
                         {baseInputs}
-
+                        {errorAlert}
                         {submitButton}
                     </form>
                 </CardContent>
@@ -33,7 +33,7 @@ export function AuthFormLayout({ title, description, baseInputs, signUpInput, su
                     {footer}
                 </CardFooter>
             </Card>
-            {errorAlert}
+
         </>
     )
 }

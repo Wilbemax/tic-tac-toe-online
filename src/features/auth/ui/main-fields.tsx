@@ -3,8 +3,13 @@
 import { Input } from "@/shared/ui/input"
 import { Label } from "@/shared/ui/label"
 import { PasswordInput } from "@/shared/ui/password-input"
-export default function MainFields({ nameField }: {
-    nameField: boolean
+export default function MainFields({ nameField, formData, errors }: {
+    nameField: boolean,
+    formData?: FormData,
+    errors?: {
+        email?: string,
+        password?: string,
+    }
 }) {
     return (
         <>
@@ -16,6 +21,7 @@ export default function MainFields({ nameField }: {
                         type="text"
                         placeholder="John Doe"
                         name='name'
+                        defaultValue={formData?.get('name')?.toString()}
                         required
                     />
                 </div>}
@@ -26,8 +32,11 @@ export default function MainFields({ nameField }: {
                     type="email"
                     placeholder="john@example.com"
                     name='email'
+                    
+                    defaultValue={formData?.get('email')?.toString()}
                     required
                 />
+                {errors?.email && <p className="text-red-500">{errors.email}</p>}
             </div>
             <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
@@ -35,8 +44,11 @@ export default function MainFields({ nameField }: {
                     placeholder="Enter your password"
                     id="password"
                     name="password"
+                    defaultValue={formData?.get('password')?.toString()}
                     required
                 />
+                {errors?.password && <p className="text-red-500">{errors.password}</p>}
+
             </div>
         </>
     )
