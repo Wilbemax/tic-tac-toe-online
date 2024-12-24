@@ -18,7 +18,7 @@ export default async function RootLayout({
   const { session } = await sessionService.verifySession()
   return (
 
-    <div>
+    <div className="flex  flex-col grow">
       <header className="w-full px-14 py-3 flex flex-row justify-between border-b border-b-primary/10 items-center">
         <Logo />
         <div className="flex flex-row gap-4 items-center">

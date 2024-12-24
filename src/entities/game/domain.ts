@@ -43,3 +43,22 @@ export type Field = Cell[];
 
 export type Cell = GameSymbol | null;
 export type GameSymbol = string;
+
+export const GameSymbol = {
+  X: "X",
+  O: "O",
+};
+
+export const getGameCurrentSymbol = (
+  game: GameInProgressEntity | GameOverEntity,
+) => {
+  const symbols = game.field.filter((s) => s !== null).length;
+
+  return symbols % 2 === 0 ? GameSymbol.X : GameSymbol.O;
+};
+
+export const getNextSymbol = (sameSymbol: GameSymbol) => {
+  if (sameSymbol === GameSymbol.X) return GameSymbol.O;
+
+  return GameSymbol.X;
+};
