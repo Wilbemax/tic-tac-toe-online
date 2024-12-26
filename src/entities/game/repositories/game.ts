@@ -18,24 +18,38 @@ async function gameList(where?: Prisma.GameWhereInput): Promise<GameEntity[]> {
 }
 
 
+async function getGame(where?: Prisma.GameWhereInput) {
+  const game = await prisma.game.findFirst({
+    where,
+    include: {
+      winner: true,
+      players: true,
+    },
+  });
+
+  if (game) {
+    return dbGameToGameEntity(game)
+  }
+
+  return undefined
+}
+
 async function createGame(game: GameIdleEntity): Promise<GameEntity> {
   const createdGame = await prisma.game.create({
     data: {
       status: game.status,
       id: game.id,
-      field: Array(9).fill(null),
+      field: game.field,
       players: {
-        connect: {id: game.creator.id}
-      }
+        connect: { id: game.creator.id },
+      },
     },
     include: {
       players: true,
       winner: true,
-
-    }
-  })
+    },
+  });
   return dbGameToGameEntity(createdGame);
-
 }
 
 const fieldSchema = z.array(z.union([z.string(), z.null()]));
@@ -46,8 +60,7 @@ function dbGameToGameEntity(
     winner?: User | null;
   },
 ): GameEntity {
-
-  const players = game.players.map(removePassword)
+  const players = game.players.map(removePassword);
   switch (game.status) {
     case "idle":
       const [creator] = players;
@@ -59,12 +72,13 @@ function dbGameToGameEntity(
         id: game.id,
         creator: creator,
         status: game.status,
+        field: fieldSchema.parse(game.field),
       } satisfies GameIdleEntity;
     case "inProgress":
     case "gameOverDraw": {
       return {
         id: game.id,
-        players:players,
+        players: players,
         status: game.status,
         field: fieldSchema.parse(game.field),
       };
@@ -86,4 +100,4 @@ function dbGameToGameEntity(
   }
 }
 
-export const gameRepositories = { gameList, createGame };
+export const gameRepositories = { gameList, createGame, getGame };

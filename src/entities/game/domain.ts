@@ -10,6 +10,7 @@ export type GameIdleEntity = {
   id: GameId;
   creator: PlayerEntity;
   status: "idle";
+  field: Field;
 };
 
 export type GameInProgressEntity = {
