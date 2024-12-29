@@ -6,7 +6,7 @@ export function GameLayout({ field, players, status }: {
     // actions?: React.ReactNode
     field?: React.ReactNode
 }) {
-    //5:01
+
     return (
         <Card>
             <CardHeader>

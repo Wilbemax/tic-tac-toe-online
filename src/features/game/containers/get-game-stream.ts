@@ -3,8 +3,6 @@ import { GameId } from "@/kernel/ids";
 import { sseStream } from "@/shared/lib/sse/server";
 import { NextRequest } from "next/server";
 
-//6:04
-
 
 export const getGameStream = async (
   req: NextRequest,
