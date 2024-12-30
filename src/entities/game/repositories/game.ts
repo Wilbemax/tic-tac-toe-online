@@ -1,4 +1,9 @@
-import { GameIdleEntity, PlayerEntity } from "./../domain";
+import {
+  GameIdleEntity,
+  GameInProgressEntity,
+  GameOverDrawEntity,
+  PlayerEntity,
+} from "./../domain";
 import { GameEntity, GameOverEntity } from "../domain";
 import { z } from "zod";
 import { Game, User, Prisma, GamePlayer } from "@prisma/client";
@@ -33,6 +38,29 @@ async function startGame(gameId: GameId, player: PlayerEntity) {
           },
         },
         status: "inProgress",
+      },
+      include: whereIncludes,
+    }),
+  );
+}
+async function saveGame(
+  game: GameInProgressEntity | GameOverEntity | GameOverDrawEntity,
+) {
+  const winnerId =
+    game.status === "gameOver"
+      ? await prisma.gamePlayer
+          .findFirstOrThrow({ where: { userId: game.winner.id } })
+          .then((p) => p.id)
+      : undefined;
+  return dbGameToGameEntity(
+    await prisma.game.update({
+      where: {
+        id: game.id,
+      },
+      data: {
+        status: game.status,
+        field: game.field,
+        winnerId: winnerId,
       },
       include: whereIncludes,
     }),
@@ -131,4 +159,10 @@ export const dbPlayerToPlayer = (
   };
 };
 
-export const gameRepositories = { gameList, createGame, getGame, startGame };
+export const gameRepositories = {
+  gameList,
+  createGame,
+  getGame,
+  startGame,
+  saveGame,
+};

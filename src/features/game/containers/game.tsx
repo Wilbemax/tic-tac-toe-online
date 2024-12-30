@@ -5,18 +5,13 @@ import { getGameById, startGame } from "@/entities/game/server";
 import { gameEvents } from "../services/game-events";
 import { redirect } from "next/navigation";
 export async function Game({ gameId }: { gameId: GameId }) {
-
     const user = await getCurrentUser()
-    console.log("Game=======", user)
-
     let game = await getGameById(gameId)
     if (!game) {
         redirect('/')
     }
-
     if (user) {
         const startGameResult = await startGame(gameId, user)
-
         if (startGameResult.type === "right") {
             game = startGameResult.value
             gameEvents.emit(startGameResult.value)
