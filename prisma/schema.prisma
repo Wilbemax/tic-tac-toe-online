@@ -16,6 +16,8 @@ datasource db {
 model Game {
   id         String     @id @default(cuid())
   status     GameStatus
+
+
   players    User[]     @relation("games")
   winner     User?      @relation(fields: [winnerId], references: [id])
   winnerId   String?
@@ -39,3 +41,6 @@ model User {
   games        Game[] @relation("games")
   winnerGames  Game[]
 }
+
+
+
