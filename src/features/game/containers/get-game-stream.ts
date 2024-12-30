@@ -13,6 +13,11 @@ export const getGameStream = async (
   const user = await getCurrentUser();
   const game = await getGameById(id);
 
+
+  // console.log(user);
+  
+
+
   if (!game || !user) {
     return new Response(`Game not found`, {
       status: 404,
@@ -31,10 +36,10 @@ export const getGameStream = async (
     unwatch();
 
     const res = await surrenderGame(id, user);
-
-
-    if (res.type === 'right') {
-      gameEvents.emit(res.value)
+     console.log(user);
+    
+    if (res.type === "right") {
+      gameEvents.emit(res.value);
     }
   });
 

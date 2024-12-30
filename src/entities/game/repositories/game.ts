@@ -49,9 +49,13 @@ async function saveGame(
   const winnerId =
     game.status === "gameOver"
       ? await prisma.gamePlayer
-          .findFirstOrThrow({ where: { userId: game.winner.id } })
-          .then((p) => p.id)
+          .findFirst({ where: { userId: game.winner.id } })
+          .then((p) => p?.id)
       : undefined;
+
+  if (game.status === "gameOver" && !winnerId) {
+    throw new Error("Winner not found in gamePlayer");
+  }
   return dbGameToGameEntity(
     await prisma.game.update({
       where: {

@@ -1,7 +1,9 @@
 import { GameDomain } from "@/entities/game";
 
 export const GameStatus = ({ game }: { game: GameDomain.GameEntity }) => {
-
+    if (game.status === "gameOver" && game.winner) {
+        console.log(game.winner)
+    }
 
     switch (game.status) {
         case "idle":
@@ -12,7 +14,7 @@ export const GameStatus = ({ game }: { game: GameDomain.GameEntity }) => {
         }
         case "gameOver": {
 
-            return <div className="text-lg">Победитель: {GameDomain.getGameCurrentSymbol(game)}</div>
+            return <div className="text-lg">Победитель: {game.winner.name}</div>
         }
         case "gameOverDraw":
             return <div className="text-lg">Ничья</div>
