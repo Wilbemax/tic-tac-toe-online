@@ -6,7 +6,6 @@ import { left } from "@/shared/lib/either";
 
 export async function startGame(gameId: GameId, player: PlayerEntity) {
   const game = await gameRepositories.getGame({ id: gameId });
-
   if (!game) {
     return left("game-nit-found" as const);
   }
@@ -19,5 +18,5 @@ export async function startGame(gameId: GameId, player: PlayerEntity) {
     return left("creator-can-not-start-game" as const);
   }
 
-  return right( await gameRepositories.startGame(gameId, player));
+  return right(await gameRepositories.startGame(gameId, player));
 }

@@ -22,7 +22,7 @@ export default async function RootLayout({
       <header className="w-full px-14 py-3 flex flex-row justify-between border-b border-b-primary/10 items-center">
         <Logo />
         <div className="flex flex-row gap-4 items-center">
-          <div>{session.login}</div>
+          <div>{session.name}</div>
           <form action={async () => {
             "use server"
             await sessionService.deleteSession()

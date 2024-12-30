@@ -11,8 +11,7 @@ import { SignInFormState, signUpAction } from '../actions/sign-up'
 export default function SignUpForm() {
     const [formState, action, isPending] = useActionState(signUpAction, {} as SignInFormState)
 
-    //4-03
-
+ 
     return (
 
         <AuthFormLayout

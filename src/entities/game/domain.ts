@@ -36,6 +36,7 @@ export type GameOverDrawEntity = {
 
 export type PlayerEntity = {
   id: GameId;
+  name: string;
   login: string;
   rating: number;
 };

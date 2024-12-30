@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 export async function Game({ gameId }: { gameId: GameId }) {
 
     const user = await getCurrentUser()
-
+    console.log("Game=======", user)
 
     let game = await getGameById(gameId)
     if (!game) {

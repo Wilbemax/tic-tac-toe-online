@@ -5,9 +5,11 @@ import cuid from "cuid";
 import { DEFAULT_RATING } from "../domain";
 
 const createUser = async ({
+  name,
   email,
   password,
 }: {
+  name: string
   email: string;
   password: string;
 }) => {
@@ -21,6 +23,7 @@ const createUser = async ({
 
   const user = await userRepository.saveUser({
     id: cuid(),
+    name,
     login: email,
     rating: DEFAULT_RATING,
     passwordHash: hash,

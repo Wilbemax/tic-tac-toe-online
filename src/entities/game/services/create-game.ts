@@ -24,5 +24,5 @@ export async function createGame(player: PlayerEntity) {
     field: Array(9).fill(null),
   });
 
-  return right(createdGame );
+  return right(createdGame);
 }
