@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tic-Tac-Toe Online
 
-## Getting Started
+## Project Description
+Tic-Tac-Toe Online is a multiplayer online game that brings the classic Tic-Tac-Toe to life using modern technologies. The goal is to provide users with a seamless real-time gaming experience.
 
-First, run the development server:
+## Tech Stack
+- **Next.js 15**: for server-side rendering and routing.
+- **React 19**: for building an interactive user interface.
+- **RabbitMQ**: for real-time message exchange between players.
+- **ShadCN/UI**: for styling and UI components.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
+- Real-time multiplayer gameplay.
+- Intuitive and user-friendly interface.
+- Room creation and joining functionality.
+- Real-time game state updates.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Installation and Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/username/tic-tac-toe-online.git
+   cd tic-tac-toe-online
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-## Learn More
+3. **Start RabbitMQ:**
+   Ensure RabbitMQ is running locally or accessible on a remote server.
 
-To learn more about Next.js, take a look at the following resources:
+4. **Start the application:**
+   ```bash
+   docker-compose up
+   npm run dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. **Open the app in your browser:**
+   Navigate to [http://localhost:3000](http://localhost:3000).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
+- `/components` — reusable React components.
+- `/pages` — application pages managed by Next.js.
+- `/styles` — styles used in the application (ShadCN).
+- `/utils` — utility functions and helpers.
 
-## Deploy on Vercel
+## How to Play
+1. Log in to the application.
+2. Create a room or join an existing one.
+3. Players take turns making moves, aiming to align three symbols in a row.
+4. The player who aligns three symbols first wins.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Future Enhancements
+- Adding a single-player mode with AI.
+- Improving visualization of winning lines.
+- Supporting custom interface themes.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contributing
+PRs and suggestions are welcome! Please refer to [CONTRIBUTING.md](./CONTRIBUTING.md) for more information.
+
+## License
+This project is licensed under the terms of the [MIT License](./LICENSE).
