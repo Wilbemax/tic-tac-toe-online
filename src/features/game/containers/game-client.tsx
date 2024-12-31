@@ -8,10 +8,10 @@ import { GameDomain } from "@/entities/game";
 
 export function GameClient({ defaultGame }: { defaultGame: GameDomain.GameEntity }) {
 
-    const { game, isPending } = useGame(defaultGame.id)
+    const { game, isPending, step } = useGame(defaultGame.id)
 
     if (!game || isPending) return <GameLayout status={"Загрузка"} />
 
 
-    return <GameLayout players={<GamePlayers game={game} />} status={<GameStatus game={game} />} field={<GameField game={game} />} />
+    return <GameLayout players={<GamePlayers game={game} />} status={<GameStatus game={game} />} field={<GameField game={game} onCellClick={step} />} />
 }
