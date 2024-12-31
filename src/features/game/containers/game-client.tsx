@@ -6,9 +6,9 @@ import { GameField } from "../ui/field";
 import { useGame } from "../model/use-game";
 import { GameDomain } from "@/entities/game";
 
-export function GameClient({ defaultGame }: { defaultGame: GameDomain.GameEntity }) {
+export function GameClient({ defaultGame, player }: { defaultGame: GameDomain.GameEntity, player: GameDomain.PlayerEntity }) {
 
-    const { game, isPending, step } = useGame(defaultGame.id)
+    const { game, isPending, step } = useGame(defaultGame.id, player)
 
     if (!game || isPending) return <GameLayout status={"Загрузка"} />
 
